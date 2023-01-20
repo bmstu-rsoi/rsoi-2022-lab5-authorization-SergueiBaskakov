@@ -37,6 +37,8 @@ var client = new Client({
   port: 5432,
 });
 
+var waitTime = 1000
+
 client.connect();
 
 app.use(express.json());
@@ -55,7 +57,9 @@ function sleep(ms) {
 
 app.get('/', (req, res) => {
   //sleep(3000)
-  setTimeout(res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out'), 3000);
+  setTimeout((() => {
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
+  }), waitTime)
   //res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
   //res.send('// Gateway Service //');
 });
@@ -119,26 +123,33 @@ app.get('/api/v1/hotels', (req, res) => {
         })
         .then((response) => {
           // handle success
-          res.statusCode = response.status
-          return response.status == 200 ? res.send(response.data) : res.end();
+          setTimeout((() => {
+            res.statusCode = response.status
+            response.status == 200 ? res.send(response.data) : res.end();res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
+          }), waitTime)
+          
         })
         .catch((error) => {
           // handle error
-          res.statusCode = 400
-          return res.end(JSON.stringify({ message: error.message}));
+          setTimeout((() => {
+            res.statusCode = 400
+            res.end(JSON.stringify({ message: error.message}));
+          }), waitTime)
+          
         })
-        .finally(() => {
-          // always executed
-        });
         //decoded = jwt_decode(authorization);
     } catch (e) {
       console.log(e)
-        return res.status(401).send('unauthorized');
+      setTimeout((() => {
+        res.status(401).send('unauthorized');
+      }), waitTime)
     }
     //var userId = decoded.id;    
 }
 else {
-  return res.status(401).send('unauthorized');
+  setTimeout((() => {
+    res.status(401).send('unauthorized');
+  }), waitTime)
 }
   
 });
@@ -169,29 +180,42 @@ app.get('/api/v1/loyalty', (req, res) => {
           })
           .then((response) => {
             // handle success
-            res.statusCode = response.status
-            response.status == 200 ? res.send(response.data) : res.end();
+            setTimeout((() => {
+              res.statusCode = response.status
+              response.status == 200 ? res.send(response.data) : res.end();
+            }), waitTime)
+            
           })
           .catch((error) => {
             // handle error
-            res.statusCode = 400
-            res.end(JSON.stringify({ message: error.message}));
+            setTimeout((() => {
+              res.statusCode = 400
+              res.end(JSON.stringify({ message: error.message}));
+            }), waitTime)
+            
           })
         })
         .catch((error) => {
-          res.statusCode = 401
-          res.end(JSON.stringify({ message: error.message}));
+          setTimeout((() => {
+            res.statusCode = 401
+            res.end(JSON.stringify({ message: error.message}));
+          }), waitTime)
+          
         })
         
         //decoded = jwt_decode(authorization);
     } catch (e) {
       console.log(e)
-        return res.status(401).send('unauthorized');
+      setTimeout((() => {
+        res.status(401).send('unauthorized');
+      }), waitTime)
     }
     //var userId = decoded.id;    
   }
   else {
-    return res.status(401).send('unauthorized');
+    setTimeout((() => {
+      res.status(401).send('unauthorized');
+    }), waitTime)
   }
   
 });
@@ -234,35 +258,51 @@ app.get('/api/v1/reservations/:reservationUid', (req, res) => {
                 reservation.payment = payment
                 reservation.startDate = reservation.startDate.split("T")[0]
                 reservation.endDate = reservation.endDate.split("T")[0]
-                res.statusCode = 200
-                res.send(JSON.stringify(reservation))
+                setTimeout((() => {
+                  res.statusCode = 200
+                  res.send(JSON.stringify(reservation))
+                }), waitTime)
+                
               })
               .catch((error) => {
                 // handle error
-                res.statusCode = 400
-                res.end(JSON.stringify({ message: error.message}));
+                setTimeout((() => {
+                  res.statusCode = 400
+                  res.end(JSON.stringify({ message: error.message}));
+                }), waitTime)
+                
               })
           })
           .catch((error) => {
             // handle error
-            res.statusCode = 400
-            res.end(JSON.stringify({ message: error.message}));
+            setTimeout((() => {
+              res.statusCode = 400
+              res.end(JSON.stringify({ message: error.message}));
+            }), waitTime)
+            
           })
         })
         .catch((error) => {
-          res.statusCode = 401
-          res.end(JSON.stringify({ message: error.message}));
+          setTimeout((() => {
+            res.statusCode = 401
+            res.end(JSON.stringify({ message: error.message}));
+          }), waitTime)
+          
         })
         
         //decoded = jwt_decode(authorization);
     } catch (e) {
       console.log(e)
-        return res.status(401).send('unauthorized');
+      setTimeout((() => {
+        res.status(401).send('unauthorized');
+      }), waitTime)
     }
     //var userId = decoded.id;    
 }
 else {
-  return res.status(401).send('unauthorized');
+  setTimeout((() => {
+    res.status(401).send('unauthorized');
+  }), waitTime)
 }
 });
 
@@ -315,35 +355,51 @@ app.get('/api/v1/reservations', (req, res) => {
                     val.endDate = val.endDate.split("T")[0]
                     return val
                   })
-                  res.statusCode = 200
-                  res.send(JSON.stringify(reservations))
+                  setTimeout((() => {
+                    res.statusCode = 200
+                    res.send(JSON.stringify(reservations))
+                  }), waitTime)
+                  
                 })
                 .catch((error) => {
                   // handle error
-                  res.statusCode = 400
-                  res.end(JSON.stringify({ message: error.message}));
+                  setTimeout((() => {
+                    res.statusCode = 400
+                    res.end(JSON.stringify({ message: error.message}));
+                  }), waitTime)
+                  
                 })
           })
           .catch((error) => {
             // handle error
-            res.statusCode = 400
-            res.end(JSON.stringify({ message: error.message}));
+            setTimeout((() => {
+              res.statusCode = 400
+              res.end(JSON.stringify({ message: error.message}));
+            }), waitTime)
+            
           })
         })
         .catch((error) => {
-          res.statusCode = 402
-          res.end(JSON.stringify({ message: error.message}));
+          setTimeout((() => {
+            res.statusCode = 402
+            res.end(JSON.stringify({ message: error.message}));
+          }), waitTime)
+          
         })
         
         //decoded = jwt_decode(authorization);
     } catch (e) {
       console.log(e)
-        return res.status(401).send('unauthorized');
+      setTimeout((() => {
+        res.status(401).send('unauthorized');
+      }), waitTime)
     }
     //var userId = decoded.id;    
   }
   else {
-    return res.status(401).send('unauthorized');
+    setTimeout((() => {
+      res.status(401).send('unauthorized');
+    }), waitTime)
   }
 });
 
@@ -380,29 +436,42 @@ app.get('/api/v1/me', (req, res) => {
             const loyalty = responses[0]
             const reservations = responses[1]
             console.log(responses)
-            res.send(JSON.stringify({ "loyalty": loyalty.data, "reservations": reservations.data}));
+            setTimeout((() => {
+              res.send(JSON.stringify({ "loyalty": loyalty.data, "reservations": reservations.data}));
+            }), waitTime)
+            
             // use/access the results 
           })).catch(errors => {
             // react on errors.
             console.log(errors)
-            res.statusCode = 400
-            res.end(JSON.stringify(errors))
+            setTimeout((() => {
+              res.statusCode = 400
+              res.end(JSON.stringify(errors))
+            }), waitTime)
+            
           })
         })
         .catch((error) => {
-          res.statusCode = 401
-          res.end(JSON.stringify({ message: error.message}));
+          setTimeout((() => {
+            res.statusCode = 401
+            res.end(JSON.stringify({ message: error.message}));
+          }), waitTime)
+          
         })
         
         //decoded = jwt_decode(authorization);
     } catch (e) {
       console.log(e)
-        return res.status(401).send('unauthorized');
+      setTimeout((() => {
+        res.status(401).send('unauthorized');
+      }), waitTime)
     }
     //var userId = decoded.id;    
   }
   else {
-    return res.status(401).send('unauthorized');
+    setTimeout((() => {
+      res.status(401).send('unauthorized');
+    }), waitTime)
   }
 });
 
@@ -460,35 +529,47 @@ app.post('/api/v1/reservations', (req, res) => {
               //res.send(JSON.stringify({ "hotel": hotel.data, "avaibility": avaibility.data}));
             }
             else {
-              res.statusCode = 201
-              res.end();
+              setTimeout((() => {
+                res.statusCode = 201
+                res.end();
+              }), waitTime)
+              
             }
             // use/access the results 
           })).catch(errors => {
             // react on errors.
             console.log("log2: ", errors)
-
-            res.statusCode = 400
-            res.end(JSON.stringify({
-              "message": errors.message,
-              "errors": errors
-            }))
+            setTimeout((() => {
+              res.statusCode = 400
+              res.end(JSON.stringify({
+                "message": errors.message,
+                "errors": errors
+              }))
+            }), waitTime)
+            
           })
         })
         .catch((error) => {
-          res.statusCode = 401
-          res.end(JSON.stringify({ message: error.message}));
+          setTimeout((() => {
+            res.statusCode = 401
+            res.end(JSON.stringify({ message: error.message}));
+          }), waitTime)
+          
         })
         
         //decoded = jwt_decode(authorization);
     } catch (e) {
       console.log(e)
-        return res.status(401).send('unauthorized');
+      setTimeout((() => {
+        res.status(401).send('unauthorized');
+      }), waitTime)
     }
     //var userId = decoded.id;    
   }
   else {
-    return res.status(401).send('unauthorized');
+    setTimeout((() => {
+      res.status(401).send('unauthorized');
+    }), waitTime)
   }
 });
 
@@ -517,29 +598,42 @@ app.delete('/api/v1/reservations/:reservationUid', (req, res) => {
           })
           .then((reservationResponse) => {
             console.log("reservationResponse", reservationResponse)
-            res.statusCode = 204
-            res.send()
+            setTimeout((() => {
+              res.statusCode = 204
+              res.send()
+            }), waitTime)
+            
           })
           .catch((error) => {
             // handle error
-            res.statusCode = 404
-            res.end(JSON.stringify({ message: error.message}));
+            setTimeout((() => {
+              res.statusCode = 404
+              res.end(JSON.stringify({ message: error.message}));
+            }), waitTime)
+            
           })
         })
         .catch((error) => {
-          res.statusCode = 401
-          res.end(JSON.stringify({ message: error.message}));
+          setTimeout((() => {
+            res.statusCode = 401
+            res.end(JSON.stringify({ message: error.message}));
+          }), waitTime)
+          
         })
         
         //decoded = jwt_decode(authorization);
     } catch (e) {
       console.log(e)
-        return res.status(401).send('unauthorized');
+      setTimeout((() => {
+        res.status(401).send('unauthorized');
+      }), waitTime)
     }
     //var userId = decoded.id;    
   }
   else {
-    return res.status(401).send('unauthorized');
+    setTimeout((() => {
+      res.status(401).send('unauthorized');
+    }), waitTime)
   }
 
 });
@@ -558,17 +652,23 @@ function pay(req, res, hotel, days, loyalty, username) {
         }
         else {
           console.log("payResponse", 201)
-          res.statusCode = 201
-          res.end();
+          setTimeout((() => {
+            res.statusCode = 201
+            res.end();
+          }), waitTime)
+          
         }
       })
       .catch((error) => {
         // handle error
-        res.statusCode = 400
-        res.end(JSON.stringify({
-          "message": error.message,
-          "errors": error
-        }))
+        setTimeout((() => {
+          res.statusCode = 400
+          res.end(JSON.stringify({
+            "message": error.message,
+            "errors": error
+          }))
+        }), waitTime)
+        
       })
 }
 
@@ -605,29 +705,39 @@ function reservation(req, res, paymentUid, hotel, payData, loyalty, username) {
               data["endDate"] = data.endDate.split("T")[0]
               data["payment"] = payData
               data["discount"] = loyalty.discount
-              res.send(data)
+              setTimeout((() => {
+                res.send(data)
+              }), waitTime)
             }
             else {
-              res.end()
+              setTimeout((() => {
+                res.end();
+              }), waitTime)
             }
           })
           .catch((error) => {
             // handle error
             console.log(error)
-            res.statusCode = 400
-            res.end(JSON.stringify({
-              "message": error.message,
-              "errors": error
-            }))
+            setTimeout((() => {
+              res.statusCode = 400
+              res.end(JSON.stringify({
+                "message": error.message,
+                "errors": error
+              }))
+            }), waitTime)
+            
           })
     })
     .catch((error) => {
       // handle error
       console.log(error)
-      res.statusCode = 400
-      res.end(JSON.stringify({
-        "message": error.message,
-        "errors": error
-      }))
+      setTimeout((() => {
+        res.statusCode = 400
+        res.end(JSON.stringify({
+          "message": error.message,
+          "errors": error
+        }))
+      }), waitTime)
+      
     })
 }
