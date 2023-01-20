@@ -4,32 +4,32 @@
   "values": [
     {
       "key": "serviceUrl",
-      "value": "",
+      "value": "http://k8s-default-ingressl-9814e89188-1928607621.us-west-2.elb.amazonaws.com",
       "enabled": true
     },
     {
       "key": "identityProviderUrl",
-      "value": "",
+      "value": "https://dev-8ntxzeiwzktxlcmw.us.auth0.com",
       "enabled": true
     },
     {
       "key": "username",
-      "value": "",
+      "value": "sergueibaskakov@gmail.com",
       "enabled": true
     },
     {
       "key": "password",
-      "value": "",
+      "value": "Password123",
       "enabled": true
     },
     {
       "key": "clientId",
-      "value": "",
+      "value": "g2rbN7TMJsV0fQPSFUay7uZ3sz6as71w",
       "enabled": true
     },
     {
       "key": "clientSecret",
-      "value": "",
+      "value": "TvZbOWFDB0yw8QwAUA48m3XVyfqX3dTBAxEUjuVL0aXn4rjTvagM3KngbHJoKm02",
       "enabled": true
     }
   ],
