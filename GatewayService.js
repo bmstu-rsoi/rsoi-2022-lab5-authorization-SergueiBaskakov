@@ -37,7 +37,7 @@ var client = new Client({
   port: 5432,
 });
 
-var waitTime = 2000
+var waitTime = 500
 
 client.connect();
 
@@ -438,7 +438,7 @@ app.get('/api/v1/me', (req, res) => {
             console.log(responses)
             setTimeout((() => {
               res.send(JSON.stringify({ "loyalty": loyalty.data, "reservations": reservations.data}));
-            }), waitTime)
+            }), (waitTime + 1000))
             
             // use/access the results 
           })).catch(errors => {
@@ -447,7 +447,7 @@ app.get('/api/v1/me', (req, res) => {
             setTimeout((() => {
               res.statusCode = 400
               res.end(JSON.stringify(errors))
-            }), waitTime)
+            }), (waitTime + 1000))
             
           })
         })
@@ -455,7 +455,7 @@ app.get('/api/v1/me', (req, res) => {
           setTimeout((() => {
             res.statusCode = 401
             res.end(JSON.stringify({ message: error.message}));
-          }), waitTime)
+          }), (waitTime + 1000))
           
         })
         
@@ -464,14 +464,14 @@ app.get('/api/v1/me', (req, res) => {
       console.log(e)
       setTimeout((() => {
         res.status(401).send('unauthorized');
-      }), waitTime)
+      }), (waitTime + 1000))
     }
     //var userId = decoded.id;    
   }
   else {
     setTimeout((() => {
       res.status(401).send('unauthorized');
-    }), waitTime)
+    }), (waitTime + 1000))
   }
 });
 
