@@ -37,7 +37,7 @@ var client = new Client({
   port: 5432,
 });
 
-var waitTime = 1000
+var waitTime = 2000
 
 client.connect();
 
