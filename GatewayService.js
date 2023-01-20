@@ -47,8 +47,16 @@ app.listen(PORT, HOST);
 
 console.log(`Running on http://${HOST}:${PORT}`);
 
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 app.get('/', (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+  //sleep(3000)
+  setTimeout(res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out'), 3000);
+  //res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
   //res.send('// Gateway Service //');
 });
 
@@ -323,7 +331,7 @@ app.get('/api/v1/reservations', (req, res) => {
           })
         })
         .catch((error) => {
-          res.statusCode = 401
+          res.statusCode = 402
           res.end(JSON.stringify({ message: error.message}));
         })
         

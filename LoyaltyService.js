@@ -18,6 +18,7 @@ var client = new Client({
 client.connect();
 
 function renewClient() {
+  /*
   client = new Client({
     user: 'program',
     host: 'postgres.csiefghu5ckw.us-west-2.rds.amazonaws.com',//'postgres',
@@ -26,6 +27,7 @@ function renewClient() {
     port: 5432,
   });
   client.connect();
+  */
 }
 
 app.use(express.json());
